@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nagpur Parking Map</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0"></script>
+</head>
+
+<body>
+    <div class="overlay" id="overlay"></div>
+
+    <div class="container">
+        <nav class="bg-gradient-to-r from-blue-600 to-blue-800 shadow-lg rounded-b-lg">
+            <div class="px-6 py-4">
+                <div class="flex justify-between items-start">
+                    <div class="flex flex-col">
+                        <h1 class="text-2xl font-bold text-white">ParkEase</h1>
+                        <p class="text-xs text-blue-200 mt-1">by Utkarsh Patrikar</p>
+                    </div>
+                    <div class="nav-profile" id="navProfile">
+                        <div
+                            class="nav-profile-info bg-white/10 backdrop-blur-md rounded-full pl-2 pr-4 py-2 flex items-center gap-3">
+                            <div class="profile-avatar w-8 h-8 bg-white text-blue-600 rounded-full flex items-center justify-center text-sm font-semibold shadow-md"
+                                id="profileAvatar">U</div>
+                            <span id="userName" class="text-white font-medium">User</span>
+                            <div class="wallet-balance bg-white/20 px-3 py-1 rounded-full border border-white/30">
+                                ₹<span id="walletAmount" class="text-white">0</span>
+                            </div>
+                        </div>
+                        <div class="profile-dropdown" id="profileDropdown">
+                            <ul class="profile-menu">
+                                <li onclick="showProfilePage('bookings');" class="hover:bg-blue-50 rounded-md">
+                                    <i class="fas fa-ticket-alt text-blue-600"></i> My Bookings
+                                </li>
+                                <li onclick="showProfilePage('wallet');" class="hover:bg-blue-50 rounded-md">
+                                    <i class="fas fa-wallet text-blue-600"></i> Wallet
+                                </li>
+                                <li onclick="handleLogout();" class="hover:bg-red-50 rounded-md">
+                                    <i class="fas fa-sign-out-alt text-red-600"></i> Logout
+                                </li>
+                            </ul>
+                            <div id="recentBookings"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="filters">
+                <select id="vehicleType">
+                    <option value="">All Vehicle Types</option>
+                    <option value="two-wheeler">Two Wheeler</option>
+                    <option value="four-wheeler">Four Wheeler</option>
+                </select>
+                <select id="parkingType">
+                    <option value="">All Parking Types</option>
+                    <option value="covered">Covered</option>
+                    <option value="uncovered">Uncovered</option>
+                </select>
+                <select id="priceRange">
+                    <option value="">All Price Ranges</option>
+                    <option value="0-20">₹0-20/hr</option>
+                    <option value="21-40">₹21-40/hr</option>
+                    <option value="41+">₹41+/hr</option>
+                </select>
+                <button id="getCurrentLocation">Find Nearest Parking</button>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+                <div class="parking-list">
+                    <h2>Available Parking Spots</h2>
+                    <div id="parkingSpots"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add toast container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <aside class="profile-page" id="profilePage">
+        <div class="profile-page-header">
+            <h2 id="profilePageTitle">Profile</h2>
+            <button class="close-profile" onclick="closeProfilePage();">&times;</button>
+        </div>
+        <div id="profilePageContent"></div>
+    </aside>
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
